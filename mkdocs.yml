@@ -1,0 +1,135 @@
+site_name: Hanshi's Note
+site_url: https://note.preminstrel.com
+# repo_name: preminstrel/note
+# repo_url: https://github.com/preminstrel/note/
+# edit_uri: tree/master/docs
+site_description: Hanshi's Note
+copyright: Copyright &copy; 2024 <a href="https://github.com/preminstrel" target="_blank" rel="noopener">Hanshi Sun</a>
+
+theme: 
+  name: 'material'
+  language: 'zh'
+  icon: 
+    logo: material/notebook-outline
+  custom_dir: overrides
+  features:
+    - content.code.annotate
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.indexes
+    - navigation.top
+  font: false
+  palette:
+    - scheme: default
+
+markdown_extensions:
+  - toc:
+      permalink: true
+      toc_depth: 4
+  - meta
+  - def_list
+  - attr_list
+  - md_in_html
+  - sane_lists
+  - admonition
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.tilde
+  - pymdownx.critic
+  - pymdownx.details
+  - pymdownx.snippets
+  - pymdownx.magiclink
+  - pymdownx.superfences
+  - pymdownx.inlinehilite
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.tabbed:
+      alternate_style: true 
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.arithmatex:
+      generic: true
+
+validation:
+  nav:
+    omitted_files: info
+    not_found: warn
+    absolute_links: info
+  links:
+    not_found: ignore
+    absolute_links: ignore
+    unrecognized_links: ignore
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/preminstrel/
+    - icon: fontawesome/solid/rss
+      link: https://blog.preminstrel.com
+#     - icon: fontawesome/solid/home
+#       link: https://tonycrane.cc/
+#   analytics:
+#     provider: custom
+#     property: G-DYETCPM289
+
+extra_css:
+  # - https://gcore.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css
+  # - https://gcore.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css
+  # - https://gcore.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css
+  - https://cdn.tonycrane.cc/utils/katex.min.css
+  - https://cdn.tonycrane.cc/jbmono/jetbrainsmono.css
+  - https://cdn.tonycrane.cc/lxgw/lxgwscreen.css
+  - css/tasklist.css
+  - css/custom.css
+  - css/card.css
+  - css/flink.css
+  - css/changelog_extra.css
+  # - css/heti.css
+
+extra_javascript:
+  # - https://gcore.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js
+  - https://cdn.tonycrane.cc/utils/katex.min.js
+  - js/katex.js
+  # - js/heti.js
+  # - js/scheme.js # this is in template 'base.html'
+
+plugins:
+  - rss
+  - search
+  - glightbox:
+      width: 80%
+  - encryptcontent:  # now just for one page, need to be improved
+      title_prefix: "🔒 "
+      remember_password: True 
+      default_expire_dalay: 48
+      decryption_failure_message: '密码错误'
+      encrypted_something:
+        mkdocs-encrypted-toc: [nav, class]
+  - git-revision-date-localized:
+      type: datetime
+      timezone: America/New_York
+      locale: zh
+      enable_creation_date: true
+      exclude:
+        - index.md
+  - changelog
+  - statistics:
+      page_check_metadata: comment
+  - toc
+  - heti
+
+nav:
+  - Home:
+    - index.md
+    - 更新记录: changelog.md
+  - CS:
+    - cs/index.md
+    - 人工智能:
+        - cs/ai/index.md
+        - CMU 11-785 Introduction to Deep Learning: cs/ai/idl.md
+    # - 计算机系统:
+    #   - cs/system/index.md
+    #   - ICS PA 实验: cs/system/pa.md
