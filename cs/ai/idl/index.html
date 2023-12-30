@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="Hanshi's Note" name="description"/>
+<link href="https://note.preminstrel.com/cs/ai/idl/" rel="canonical"/>
+<link href="../../../assets/images/favicon.png" rel="icon"/>
+<meta content="mkdocs-1.5.3, mkdocs-material-8.1.4" name="generator"/>
+<title>CMU 11-785 Introduction to Deep Learning - Hanshi's Note</title>
+<link href="../../../assets/stylesheets/main.bb3983ee.min.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/palette.e6a45f82.min.css" rel="stylesheet"/>
+<link href="../../../css/heti.css" rel="stylesheet"/>
+<link href="../../../css/toc_extra.css" rel="stylesheet"/>
+<link href="../../../css/timeline.css" rel="stylesheet"/>
+<link href="https://cdn.tonycrane.cc/utils/katex.min.css" rel="stylesheet"/>
+<link href="https://cdn.tonycrane.cc/jbmono/jetbrainsmono.css" rel="stylesheet"/>
+<link href="https://cdn.tonycrane.cc/lxgw/lxgwscreen.css" rel="stylesheet"/>
+<link href="../../../css/tasklist.css" rel="stylesheet"/>
+<link href="../../../css/custom.css" rel="stylesheet"/>
+<link href="../../../css/card.css" rel="stylesheet"/>
+<link href="../../../css/flink.css" rel="stylesheet"/>
+<link href="../../../css/changelog_extra.css" rel="stylesheet"/>
+<link href="/css/counter.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+<link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+        html.glightbox-open { overflow: initial; height: 100%; }
+        .gslide-title { margin-top: 0px; user-select: text; }
+        .gslide-desc { color: #666; user-select: text; }
+        .gslide-image img { background: white; }
+        
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
+            </style> <script src="../../../assets/javascripts/glightbox.min.js"></script></head>
+<body data-md-color-accent="" data-md-color-primary="" data-md-color-scheme="default" dir="ltr">
+<script src="../../../js/scheme.js" type="text/javascript"></script>
+<script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#_1">
+            skip.link.title
+          </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header" data-md-component="header">
+<nav aria-label="header.title" class="md-header__inner md-grid">
+<a aria-label="Hanshi's Note" class="md-header__button md-logo" data-md-component="logo" href="../../.." title="Hanshi's Note">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 4v6l-2-2-2 2V4H9v16h10V4h-2M3 7V5h2V4a2 2 0 0 1 2-2h12c1.05 0 2 .95 2 2v16c0 1.05-.95 2-2 2H7c-1.05 0-2-.95-2-2v-1H3v-2h2v-4H3v-2h2V7H3m2-2v2h2V5H5m0 14h2v-2H5v2m0-6h2v-2H5v2Z"></path></svg>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            Hanshi's Note
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              CMU 11-785 Introduction to Deep Learning
+            
+          </span>
+</div>
+</div>
+</div>
+<div class="md-header__options">
+<div class="md-header-nav__scheme md-header-nav__button md-source__icon md-icon">
+<a class="light-mode" href="javascript:toggleScheme();" title="Light mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5c-.84 0-1.65.15-2.39.42L12 2M3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29L3.34 7m.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14L3.36 17M20.65 7l-1.77 3.79a7.023 7.023 0 0 0-2.38-4.15l4.15.36m-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29L20.64 17M12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44L12 22Z"></path></svg>
+</a>
+<a class="dark-mode" href="javascript:toggleScheme();" title="Dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3 3.19.09m3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95 2.06.05m-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31Z"></path></svg>
+</a>
+<a class="system-mode" href="javascript:toggleScheme();" title="System preference">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M7.5 2c-1.79 1.15-3 3.18-3 5.5s1.21 4.35 3.03 5.5C4.46 13 2 10.54 2 7.5A5.5 5.5 0 0 1 7.5 2m11.57 1.5 1.43 1.43L4.93 20.5 3.5 19.07 19.07 3.5m-6.18 2.43L11.41 5 9.97 6l.42-1.7L9 3.24l1.75-.12.58-1.65L12 3.1l1.73.03-1.35 1.13.51 1.67m-3.3 3.61-1.16-.73-1.12.78.34-1.32-1.09-.83 1.36-.09.45-1.29.51 1.27 1.36.03-1.05.87.4 1.31M19 13.5a5.5 5.5 0 0 1-5.5 5.5c-1.22 0-2.35-.4-3.26-1.07l7.69-7.69c.67.91 1.07 2.04 1.07 3.26m-4.4 6.58 2.77-1.15-.24 3.35-2.53-2.2m4.33-2.7 1.15-2.77 2.2 2.54-3.35.23m1.15-4.96-1.14-2.78 3.34.24-2.2 2.54M9.63 18.93l2.77 1.15-2.53 2.19-.24-3.34Z"></path></svg>
+</a>
+<a class="unknown-mode" href="javascript:toggleScheme();" title="Unknown scheme">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m15.07 11.25-.9.92C13.45 12.89 13 13.5 13 15h-2v-.5c0-1.11.45-2.11 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41a2 2 0 0 0-2-2 2 2 0 0 0-2 2H8a4 4 0 0 1 4-4 4 4 0 0 1 4 4 3.2 3.2 0 0 1-.93 2.25M13 19h-2v-2h2M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10c0-5.53-4.5-10-10-10Z"></path></svg>
+</a>
+</div>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<nav aria-label="标签" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../..">
+          
+  
+    
+  
+  Home
+
+        </a>
+</li>
+<li class="md-tabs__item md-tabs__item--active">
+<a class="md-tabs__link" href="../../">
+          
+  
+    
+  
+  CS
+
+        </a>
+</li>
+</ul>
+</div>
+</nav>
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="导航栏" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="Hanshi's Note" class="md-nav__button md-logo" data-md-component="logo" href="../../.." title="Hanshi's Note">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 4v6l-2-2-2 2V4H9v16h10V4h-2M3 7V5h2V4a2 2 0 0 1 2-2h12c1.05 0 2 .95 2 2v16c0 1.05-.95 2-2 2H7c-1.05 0-2-.95-2-2v-1H3v-2h2v-4H3v-2h2V7H3m2-2v2h2V5H5m0 14h2v-2H5v2m0-6h2v-2H5v2Z"></path></svg>
+</a>
+    Hanshi's Note
+  </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1" id="__nav_1" type="checkbox"/>
+<div class="md-nav__link md-nav__link--index">
+<a href="../../..">Home</a>
+<label for="__nav_1">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-label="Home" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_1">
+<span class="md-nav__icon md-icon"></span>
+          Home
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../changelog/">
+        更新记录
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" id="__nav_2" type="checkbox"/>
+<div class="md-nav__link md-nav__link--index">
+<a href="../../">CS</a>
+<label for="__nav_2">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-label="CS" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_2">
+<span class="md-nav__icon md-icon"></span>
+          CS
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" id="__nav_2_2" type="checkbox"/>
+<div class="md-nav__link md-nav__link--index">
+<a href="../">人工智能</a>
+<label for="__nav_2_2">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-label="人工智能" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_2_2">
+<span class="md-nav__icon md-icon"></span>
+          人工智能
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" data-md-toggle="toc" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+          CMU 11-785 Introduction to Deep Learning
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+        CMU 11-785 Introduction to Deep Learning
+      </a>
+<nav aria-label="toc.title" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+        Table of Contents
+      </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#_1">
+<span class="md-ellipsis">
+      课程评价
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#homework">
+<span class="md-ellipsis">
+      Homework
+    </span>
+</a>
+<nav aria-label="Homework" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#hw1p1">
+<span class="md-ellipsis">
+      HW1P1
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#hw1p2">
+<span class="md-ellipsis">
+      HW1P2
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#hw2p1">
+<span class="md-ellipsis">
+      HW2P1
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#hw2p2">
+<span class="md-ellipsis">
+      HW2P2
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#hw3p1">
+<span class="md-ellipsis">
+      HW3P1
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#hw3p2">
+<span class="md-ellipsis">
+      HW3P2
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#hw4p1">
+<span class="md-ellipsis">
+      HW4P1
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#hw4p2">
+<span class="md-ellipsis">
+      HW4P2
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#project">
+<span class="md-ellipsis">
+      Project
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#final-words">
+<span class="md-ellipsis">
+      Final Words
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="toc.title" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+        Table of Contents
+      </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#_1">
+<span class="md-ellipsis">
+      课程评价
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#homework">
+<span class="md-ellipsis">
+      Homework
+    </span>
+</a>
+<nav aria-label="Homework" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#hw1p1">
+<span class="md-ellipsis">
+      HW1P1
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#hw1p2">
+<span class="md-ellipsis">
+      HW1P2
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#hw2p1">
+<span class="md-ellipsis">
+      HW2P1
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#hw2p2">
+<span class="md-ellipsis">
+      HW2P2
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#hw3p1">
+<span class="md-ellipsis">
+      HW3P1
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#hw3p2">
+<span class="md-ellipsis">
+      HW3P2
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#hw4p1">
+<span class="md-ellipsis">
+      HW4P1
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#hw4p2">
+<span class="md-ellipsis">
+      HW4P2
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#project">
+<span class="md-ellipsis">
+      Project
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#final-words">
+<span class="md-ellipsis">
+      Final Words
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<script defer="" src="/js/toc.js"></script>
+<link href="/css/fold_toc.css" rel="stylesheet"/>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<h1>CMU 11-785 Introduction to Deep Learning</h1>
+<div style="margin-top: -30px; font-size: 0.75em; opacity: 0.7;">
+<p><span class="twemoji"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10h-2a8 8 0 0 1-8 8 8 8 0 0 1-8-8 8 8 0 0 1 8-8V2m6.78 1a.69.69 0 0 0-.48.2l-1.22 1.21 2.5 2.5L20.8 5.7c.26-.26.26-.7 0-.95L19.25 3.2c-.13-.13-.3-.2-.47-.2m-2.41 2.12L9 12.5V15h2.5l7.37-7.38-2.5-2.5Z"></path></svg></span> 约<span class="heti-skip"><span class="heti-spacing"> </span>2960<span class="heti-spacing"> </span></span>个字 <span class="twemoji"><svg viewbox="0 0 640 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M392.8 1.2c-17-4.9-34.7 5-39.6 22l-128 448c-4.9 17 5 34.7 22 39.6s34.7-5 39.6-22l128-448c4.9-17-5-34.7-22-39.6zm80.6 120.1c-12.5 12.5-12.5 32.8 0 45.3l89.3 89.4-89.4 89.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l112-112c12.5-12.5 12.5-32.8 0-45.3l-112-112c-12.5-12.5-32.8-12.5-45.3 0zm-306.7 0c-12.5-12.5-32.8-12.5-45.3 0l-112 112c-12.5 12.5-12.5 32.8 0 45.3l112 112c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l89.4-89.4c12.5-12.5 12.5-32.8 0-45.3z"></path></svg></span> <span>65<span class="heti-spacing"> </span></span>行代码 <span class="twemoji"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 20c4.42 0 8-3.58 8-8s-3.58-8-8-8-8 3.58-8 8 3.58 8 8 8m0-18c5.5 0 10 4.5 10 10s-4.5 10-10 10C6.47 22 2 17.5 2 12S6.5 2 12 2m.5 11H11V7h1.5v4.26l3.7-2.13.75 1.3L12.5 13Z"></path></svg></span> 预计阅读时间<span class="heti-skip"><span class="heti-spacing"> </span>11<span class="heti-spacing"> </span></span>分钟</p>
+</div>
+<div class="admonition abstract">
+<p class="admonition-title">Abstract</p>
+<p><span>CMU 11-785 IDL Homework, Project<span class="heti-spacing"> </span></span>和评价。</p>
+<p>Course Website：<a href="http://deeplearning.cs.cmu.edu">http://deeplearning.cs.cmu.edu</a></p>
+<p><span>11-785<span class="heti-spacing"> </span></span>的是<span class="heti-skip"><span class="heti-spacing"> </span>Bhiksha Raj<span class="heti-spacing"> </span></span>讲的，很多我之前以为自己掌握了，但是实际上一知半解的东西，在这节课上都得到了答案。</p>
+</div>
+<h2 id="_1">课程评价<a class="headerlink" href="#_1" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p><span>11-785<span class="heti-spacing"> </span></span>的<span class="heti-skip"><span class="heti-spacing"> </span>workload<span class="heti-spacing"> </span></span>算比较大的，除了每周的<span><span class="heti-spacing"> </span>Quiz</span> 、course project，每次的<span class="heti-skip"><span class="heti-spacing"> </span>Homework<span class="heti-spacing"> </span></span>都分为两个部分，第一个部分是从零开始实现自己的<span><span class="heti-spacing"> </span>MyTorch</span>，<span>Bonus<span class="heti-spacing"> </span></span>部分还包括了<span class="heti-skip"><span class="heti-spacing"> </span>Auto Gradient<span class="heti-spacing"> </span></span>的实现，有点像<span class="heti-skip"><span class="heti-spacing"> </span>Tianqi Chen<span class="heti-spacing"> </span></span>讲的<span class="heti-skip"><span class="heti-spacing"> </span>DLSys<span class="heti-spacing"> </span></span>的<span><span class="heti-spacing"> </span>needle</span>，和<span class="heti-skip"><span class="heti-spacing"> </span>needle<span class="heti-spacing"> </span></span>的区别是不用自己写<span class="heti-skip"><span class="heti-spacing"> </span>numpy CPU backend<span class="heti-spacing"> </span></span>和<span><span class="heti-spacing"> </span>CUDA backend</span>；第二个部分是打<span><span class="heti-spacing"> </span>Kaggle</span>，和全班同学一起刷点数打榜。虽然这门课的<span class="heti-skip"><span class="heti-spacing"> </span>workload<span class="heti-spacing"> </span></span>很大，但是不得不说，这门课的<span class="heti-skip"><span class="heti-spacing"> </span>infra<span class="heti-spacing"> </span></span>相当完善，可以和著名的<span class="heti-skip"><span class="heti-spacing"> </span>CSAPP<span class="heti-spacing"> </span></span>媲美，有<span class="heti-skip"><span class="heti-spacing"> </span>25<span class="heti-spacing"> </span></span>个<span><span class="heti-spacing"> </span>TA</span>、写得很好的<span><span class="heti-spacing"> </span>write-up</span>、每周的<span><span class="heti-spacing"> </span>recitation</span>、<span>Hackthon<span class="heti-spacing"> </span></span>等，<span>Piazza<span class="heti-spacing"> </span></span>上的响应速度也是超级快。</p>
+<p>从我自身的感受出发，我觉得这门课最大的价值是把很多东西讲清楚的同时，用比较好的<span class="heti-skip"><span class="heti-spacing"> </span>Homework<span class="heti-spacing"> </span></span>来巩固<span class="heti-skip"><span class="heti-spacing"> </span>coding<span class="heti-spacing"> </span></span>能力，每周的<span class="heti-skip"><span class="heti-spacing"> </span>Quiz<span class="heti-spacing"> </span></span>来巩固理论知识。说实话，在上这门课之前，我做<span class="heti-skip"><span class="heti-spacing"> </span>DL<span class="heti-spacing"> </span></span>的一些<span class="heti-skip"><span class="heti-spacing"> </span>Project<span class="heti-spacing"> </span></span>很多时候都是直接依葫芦画瓢，并不清楚这一行代码背后真正在运行什么（只知道这行代码是用来干什么的<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，也对深度学习框架只有一个比较模糊的认知（本课的<span class="heti-skip"><span class="heti-spacing"> </span>HW Part1<span class="heti-spacing"> </span></span>完美解决了这个问题<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，这门课绝对配得上是<span class="heti-skip"><span class="heti-spacing"> </span>CMU<span class="heti-spacing"> </span></span>的神课之一。正如<span class="heti-skip"><span class="heti-spacing"> </span>Bhiksha<span class="heti-spacing"> </span></span>在第一节课说的，如果这门课拿了<span><span class="heti-spacing"> </span>A</span>，说明你已经初步具备了在<span class="heti-skip"><span class="heti-spacing"> </span>DL<span class="heti-spacing"> </span></span>工业界干活的能力了。</p>
+<div class="admonition comment">
+<p class="admonition-title">Comment</p>
+<p>Workload: ★★★★☆</p>
+<p>Reward: ★★★★☆</p>
+<p>Recommendation: ★★★★★</p>
+</div>
+<h2 id="homework">Homework<a class="headerlink" href="#homework" title="Permanent link">¶</a></h2>
+<p>这门课想要拿高分确实不难，因为没有考试，作业给的时间也比较充足，所以大家分数基本都很高。由于<span class="heti-skip"><span class="heti-spacing"> </span>Bhiksha<span class="heti-spacing"> </span></span>是在<span class="heti-skip"><span class="heti-spacing"> </span>LTI<span class="heti-spacing"> </span></span>学院做<span class="heti-skip"><span class="heti-spacing"> </span>Speech<span class="heti-spacing"> </span></span>的，所以这门课好像除了第二个<span class="heti-skip"><span class="heti-spacing"> </span>Homework<span class="heti-spacing"> </span></span>是<span><span class="heti-spacing"> </span>Face Classification &amp; Verification</span>，其他<span class="heti-skip"><span class="heti-spacing"> </span>Homework<span class="heti-spacing"> </span></span>都是关于<span class="heti-skip"><span class="heti-spacing"> </span>Speech Recognition<span class="heti-spacing"> </span></span>的（相比之下，<span>ECE<span class="heti-spacing"> </span></span>学院的<span class="heti-skip"><span class="heti-spacing"> </span>Intro to DL<span class="heti-spacing"> </span></span>大部分的<span class="heti-skip"><span class="heti-spacing"> </span>Homework<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>Project<span class="heti-spacing"> </span></span>都是关于<span class="heti-skip"><span class="heti-spacing"> </span>Computer Vision<span class="heti-spacing"> </span></span>的<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</p>
+<p>关于<span><span class="heti-spacing"> </span>workload</span>，这门课我感觉主要是前面花的时间稍微多一些，最后一个月我几乎没有花什么时间在上面。看起来<span class="heti-skip"><span class="heti-spacing"> </span>write-up<span class="heti-spacing"> </span></span>很吓人，但是其实做起来真的还好。 每个<span class="heti-skip"><span class="heti-spacing"> </span>Homework<span class="heti-spacing"> </span></span>的<span class="heti-skip"><span class="heti-spacing"> </span>Part1<span class="heti-spacing"> </span></span>都可以一天内完成（不过我记得<span class="heti-skip"><span class="heti-spacing"> </span>Bonus<span class="heti-spacing"> </span></span>中第一个<span class="heti-skip"><span class="heti-spacing"> </span>Autograd<span class="heti-spacing"> </span></span>我<span class="heti-skip"><span class="heti-spacing"> </span>Debug<span class="heti-spacing"> </span></span>花的时间有点长<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。虽然<span class="heti-skip"><span class="heti-spacing"> </span>Part2<span class="heti-spacing"> </span></span>每个都给了快一个月的训练时间，但是我感觉只要模型结构设计得还行，适当加点<span class="heti-skip"><span class="heti-spacing"> </span>regularization<span class="heti-spacing"> </span></span>和其他的<span class="heti-skip"><span class="heti-spacing"> </span>trick<span class="heti-spacing"> </span></span>基本都可以达到<span class="heti-skip"><span class="heti-spacing"> </span>high cutoff<span class="heti-spacing"> </span></span>拿满分。反而我是觉得每周的<span class="heti-skip"><span class="heti-spacing"> </span>Quiz<span class="heti-spacing"> </span></span>还挺折磨的，每周都得花点时间去做一下。不过需要注意一下计算资源的使用情况，如果天天跑的话，<span>400<span class="heti-spacing"> </span></span>刀的<span class="heti-skip"><span class="heti-spacing"> </span>GCP<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>150<span class="heti-spacing"> </span></span>刀的<span class="heti-skip"><span class="heti-spacing"> </span>AWS credits<span class="heti-spacing"> </span></span>远远不够。</p>
+<h3 id="hw1p1">HW1P1<a class="headerlink" href="#hw1p1" title="Permanent link">¶</a></h3>
+<p><span>HW1P1 (Introduction to MyTorch, Autograd)<span class="heti-spacing"> </span></span>包括了<span class="heti-skip"><span class="heti-spacing"> </span>MyTorch<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>Autograd<span class="heti-spacing"> </span></span>两个部分，其中<span class="heti-skip"><span class="heti-spacing"> </span>Autograd<span class="heti-spacing"> </span></span>是<span class="heti-skip"><span class="heti-spacing"> </span>Bonus<span class="heti-spacing"> </span></span>部分。<span>MyTorch<span class="heti-spacing"> </span></span>的实现基本上就是把<span class="heti-skip"><span class="heti-spacing"> </span>PyTorch<span class="heti-spacing"> </span></span>的<span class="heti-skip"><span class="heti-spacing"> </span>API<span class="heti-spacing"> </span></span>用<span class="heti-skip"><span class="heti-spacing"> </span>Numpy<span class="heti-spacing"> </span></span>实现一遍，包括<span><span class="heti-spacing"> </span>MLP</span>、 一些常见的激活函数、常见的<span><span class="heti-spacing"> </span>loss</span>、BatchNorm、SGD、AdamW、<span>Dropout<span class="heti-spacing"> </span></span>等等。这部分的代码量不算很大，但是需要注意的是，这部分的代码需要写得很规范，因为后面的<span class="heti-skip"><span class="heti-spacing"> </span>HW<span class="heti-spacing"> </span></span>都是基于这部分的代码来实现的，所以需要保证这部分的代码没有<span><span class="heti-spacing"> </span>bug</span>。<span>Autograd<span class="heti-spacing"> </span></span>算是一个小难点，主要的工作量是去理解他的<span><span class="heti-spacing"> </span>framework</span>，了解他是怎么写<span class="heti-skip"><span class="heti-spacing"> </span>automatic differentitation<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>autograd engine<span class="heti-spacing"> </span></span>的，下面算是一个最简单的<span><span class="heti-spacing"> </span>skeleton</span>：</p>
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-0-1" id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="k">class</span> <span class="nc">Operation</span><span class="p">:</span>
+<a href="#__codelineno-0-2" id="__codelineno-0-2" name="__codelineno-0-2"></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">gradients_to_update</span><span class="p">,</span> <span class="n">backward_operation</span><span class="p">):</span>
+<a href="#__codelineno-0-3" id="__codelineno-0-3" name="__codelineno-0-3"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span> <span class="o">=</span> <span class="n">inputs</span>
+<a href="#__codelineno-0-4" id="__codelineno-0-4" name="__codelineno-0-4"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">output</span> <span class="o">=</span> <span class="n">output</span>
+<a href="#__codelineno-0-5" id="__codelineno-0-5" name="__codelineno-0-5"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">gradients_to_update</span> <span class="o">=</span> <span class="n">gradients_to_update</span>
+<a href="#__codelineno-0-6" id="__codelineno-0-6" name="__codelineno-0-6"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">backward_operation</span> <span class="o">=</span> <span class="n">backward_operation</span>
+<a href="#__codelineno-0-7" id="__codelineno-0-7" name="__codelineno-0-7"></a>
+<a href="#__codelineno-0-8" id="__codelineno-0-8" name="__codelineno-0-8"></a>
+<a href="#__codelineno-0-9" id="__codelineno-0-9" name="__codelineno-0-9"></a><span class="k">class</span> <span class="nc">Autograd</span><span class="p">:</span>
+<a href="#__codelineno-0-10" id="__codelineno-0-10" name="__codelineno-0-10"></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<a href="#__codelineno-0-11" id="__codelineno-0-11" name="__codelineno-0-11"></a>        <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">,</span> <span class="s2">"_has_instance"</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
+<a href="#__codelineno-0-12" id="__codelineno-0-12" name="__codelineno-0-12"></a>            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">"Cannot create more than 1 Autograd instance"</span><span class="p">)</span>
+<a href="#__codelineno-0-13" id="__codelineno-0-13" name="__codelineno-0-13"></a>        <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">_has_instance</span> <span class="o">=</span> <span class="kc">True</span>
+<a href="#__codelineno-0-14" id="__codelineno-0-14" name="__codelineno-0-14"></a>
+<a href="#__codelineno-0-15" id="__codelineno-0-15" name="__codelineno-0-15"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">gradient_buffer</span> <span class="o">=</span> <span class="n">GradientBuffer</span><span class="p">()</span>
+<a href="#__codelineno-0-16" id="__codelineno-0-16" name="__codelineno-0-16"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">operation_list</span> <span class="o">=</span> <span class="p">[]</span>
+<a href="#__codelineno-0-17" id="__codelineno-0-17" name="__codelineno-0-17"></a>
+<a href="#__codelineno-0-18" id="__codelineno-0-18" name="__codelineno-0-18"></a>    <span class="k">def</span> <span class="fm">__del__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<a href="#__codelineno-0-19" id="__codelineno-0-19" name="__codelineno-0-19"></a>        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">gradient_buffer</span>
+<a href="#__codelineno-0-20" id="__codelineno-0-20" name="__codelineno-0-20"></a>        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">operation_list</span>
+<a href="#__codelineno-0-21" id="__codelineno-0-21" name="__codelineno-0-21"></a>        <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">_has_instance</span> <span class="o">=</span> <span class="kc">False</span>
+<a href="#__codelineno-0-22" id="__codelineno-0-22" name="__codelineno-0-22"></a>
+<a href="#__codelineno-0-23" id="__codelineno-0-23" name="__codelineno-0-23"></a>    <span class="k">def</span> <span class="nf">add_operation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">gradients_to_update</span><span class="p">,</span> <span class="n">backward_operation</span><span class="p">):</span>
+<a href="#__codelineno-0-24" id="__codelineno-0-24" name="__codelineno-0-24"></a>        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">gradients_to_update</span><span class="p">):</span>
+<a href="#__codelineno-0-25" id="__codelineno-0-25" name="__codelineno-0-25"></a>            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span>
+<a href="#__codelineno-0-26" id="__codelineno-0-26" name="__codelineno-0-26"></a>                <span class="s2">"Number of inputs must match the number of gradients to update!"</span>
+<a href="#__codelineno-0-27" id="__codelineno-0-27" name="__codelineno-0-27"></a>            <span class="p">)</span>
+<a href="#__codelineno-0-28" id="__codelineno-0-28" name="__codelineno-0-28"></a>        <span class="k">for</span> <span class="nb">input</span> <span class="ow">in</span> <span class="n">inputs</span><span class="p">:</span>
+<a href="#__codelineno-0-29" id="__codelineno-0-29" name="__codelineno-0-29"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">gradient_buffer</span><span class="o">.</span><span class="n">add_spot</span><span class="p">(</span><span class="nb">input</span><span class="p">)</span>
+<a href="#__codelineno-0-30" id="__codelineno-0-30" name="__codelineno-0-30"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">operation_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+<a href="#__codelineno-0-31" id="__codelineno-0-31" name="__codelineno-0-31"></a>            <span class="n">Operation</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">gradients_to_update</span><span class="p">,</span> <span class="n">backward_operation</span><span class="p">)</span>
+<a href="#__codelineno-0-32" id="__codelineno-0-32" name="__codelineno-0-32"></a>        <span class="p">)</span>
+<a href="#__codelineno-0-33" id="__codelineno-0-33" name="__codelineno-0-33"></a>
+<a href="#__codelineno-0-34" id="__codelineno-0-34" name="__codelineno-0-34"></a>    <span class="k">def</span> <span class="nf">backward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">divergence</span><span class="p">):</span>
+<a href="#__codelineno-0-35" id="__codelineno-0-35" name="__codelineno-0-35"></a>        <span class="k">for</span> <span class="n">operation</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">operation_list</span><span class="p">):</span>
+<a href="#__codelineno-0-36" id="__codelineno-0-36" name="__codelineno-0-36"></a>            <span class="k">if</span> <span class="n">operation</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">operation_list</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+<a href="#__codelineno-0-37" id="__codelineno-0-37" name="__codelineno-0-37"></a>                <span class="n">grad_front</span> <span class="o">=</span> <span class="n">divergence</span>
+<a href="#__codelineno-0-38" id="__codelineno-0-38" name="__codelineno-0-38"></a>            <span class="k">else</span><span class="p">:</span>
+<a href="#__codelineno-0-39" id="__codelineno-0-39" name="__codelineno-0-39"></a>                <span class="n">grad_front</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">gradient_buffer</span><span class="o">.</span><span class="n">get_param</span><span class="p">(</span><span class="n">operation</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+<a href="#__codelineno-0-40" id="__codelineno-0-40" name="__codelineno-0-40"></a>            <span class="n">grad_ret</span> <span class="o">=</span> <span class="n">operation</span><span class="o">.</span><span class="n">backward_operation</span><span class="p">(</span><span class="n">grad_front</span><span class="p">,</span> <span class="o">*</span><span class="n">operation</span><span class="o">.</span><span class="n">inputs</span><span class="p">)</span>
+<a href="#__codelineno-0-41" id="__codelineno-0-41" name="__codelineno-0-41"></a>
+<a href="#__codelineno-0-42" id="__codelineno-0-42" name="__codelineno-0-42"></a>            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">operation</span><span class="o">.</span><span class="n">inputs</span><span class="p">)):</span>
+<a href="#__codelineno-0-43" id="__codelineno-0-43" name="__codelineno-0-43"></a>                <span class="k">if</span> <span class="n">operation</span><span class="o">.</span><span class="n">gradients_to_update</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<a href="#__codelineno-0-44" id="__codelineno-0-44" name="__codelineno-0-44"></a>                    <span class="bp">self</span><span class="o">.</span><span class="n">gradient_buffer</span><span class="o">.</span><span class="n">update_param</span><span class="p">(</span><span class="n">operation</span><span class="o">.</span><span class="n">inputs</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">grad_ret</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+<a href="#__codelineno-0-45" id="__codelineno-0-45" name="__codelineno-0-45"></a>                <span class="k">else</span><span class="p">:</span>
+<a href="#__codelineno-0-46" id="__codelineno-0-46" name="__codelineno-0-46"></a>                    <span class="n">operation</span><span class="o">.</span><span class="n">gradients_to_update</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="n">grad_ret</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+<a href="#__codelineno-0-47" id="__codelineno-0-47" name="__codelineno-0-47"></a>
+<a href="#__codelineno-0-48" id="__codelineno-0-48" name="__codelineno-0-48"></a>    <span class="k">def</span> <span class="nf">zero_grad</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<a href="#__codelineno-0-49" id="__codelineno-0-49" name="__codelineno-0-49"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">gradient_buffer</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+<a href="#__codelineno-0-50" id="__codelineno-0-50" name="__codelineno-0-50"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">operation_list</span> <span class="o">=</span> <span class="p">[]</span>
+</code></pre></div>
+<h3 id="hw1p2">HW1P2<a class="headerlink" href="#hw1p2" title="Permanent link">¶</a></h3>
+<p><span>HW1P2 (Frame Level Classification of Speech)<span class="heti-spacing"> </span></span>就是简单用<span class="heti-skip"><span class="heti-spacing"> </span>MLP<span class="heti-spacing"> </span></span>搭积木，尝试各种网络的<span><span class="heti-spacing"> </span>structure</span>，<span>activations<span class="heti-spacing"> </span></span>和一些<span><span class="heti-spacing"> </span>tricks</span>。因为当时<span class="heti-skip"><span class="heti-spacing"> </span>AWS<span class="heti-spacing"> </span></span>的<span class="heti-skip"><span class="heti-spacing"> </span>credit<span class="heti-spacing"> </span></span>还没到账，我就直接用了<span class="heti-skip"><span class="heti-spacing"> </span>GCP server<span class="heti-spacing"> </span></span>去做。我发现<span class="heti-skip"><span class="heti-spacing"> </span>slack<span class="heti-spacing"> </span></span>的<span class="heti-skip"><span class="heti-spacing"> </span>Client API<span class="heti-spacing"> </span></span>还是挺好用的，可以直接用来<span class="heti-skip"><span class="heti-spacing"> </span>log training<span class="heti-spacing"> </span></span>的结果实时发到<span class="heti-skip"><span class="heti-spacing"> </span>slack<span class="heti-spacing"> </span></span>上，这样就不用每次都去看<span class="heti-skip"><span class="heti-spacing"> </span>log<span class="heti-spacing"> </span></span>了。</p>
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-1-1" id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="n">Asuka</span> <span class="o">=</span> <span class="n">WebClient</span><span class="p">(</span><span class="n">token</span><span class="o">=</span><span class="s2">"..."</span><span class="p">)</span>
+<a href="#__codelineno-1-2" id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="k">try</span><span class="p">:</span>
+<a href="#__codelineno-1-3" id="__codelineno-1-3" name="__codelineno-1-3"></a>    <span class="n">response</span> <span class="o">=</span> <span class="n">Asuka</span><span class="o">.</span><span class="n">chat_postMessage</span><span class="p">(</span><span class="n">channel</span><span class="o">=</span><span class="s1">'#training'</span><span class="p">,</span> 
+<a href="#__codelineno-1-4" id="__codelineno-1-4" name="__codelineno-1-4"></a>        <span class="n">text</span><span class="o">=</span><span class="sa">f</span><span class="s2">"Training Finished! best_precision: </span><span class="si">{</span><span class="n">best_precision</span><span class="si">}</span><span class="s2"> at epoch </span><span class="si">{</span><span class="n">best_epoch</span><span class="si">}</span><span class="s2">. </span>
+<a href="#__codelineno-1-5" id="__codelineno-1-5" name="__codelineno-1-5"></a>        <span class="n">The</span> <span class="n">best</span> <span class="n">result</span> <span class="ow">is</span> <span class="n">submitted</span> <span class="n">to</span> <span class="n">Kaggle</span><span class="o">.</span><span class="s2">"</span>
+<a href="#__codelineno-1-6" id="__codelineno-1-6" name="__codelineno-1-6"></a>    <span class="p">)</span>
+<a href="#__codelineno-1-7" id="__codelineno-1-7" name="__codelineno-1-7"></a>    <span class="n">response</span> <span class="o">=</span> <span class="n">Asuka</span><span class="o">.</span><span class="n">files_upload</span><span class="p">(</span>
+<a href="#__codelineno-1-8" id="__codelineno-1-8" name="__codelineno-1-8"></a>        <span class="n">channels</span><span class="o">=</span><span class="s1">'#training'</span><span class="p">,</span>
+<a href="#__codelineno-1-9" id="__codelineno-1-9" name="__codelineno-1-9"></a>        <span class="n">file</span><span class="o">=</span><span class="n">img_filename</span><span class="p">,</span>
+<a href="#__codelineno-1-10" id="__codelineno-1-10" name="__codelineno-1-10"></a>        <span class="n">title</span><span class="o">=</span><span class="s2">"Training Plot"</span><span class="p">,</span>
+<a href="#__codelineno-1-11" id="__codelineno-1-11" name="__codelineno-1-11"></a>    <span class="p">)</span>
+<a href="#__codelineno-1-12" id="__codelineno-1-12" name="__codelineno-1-12"></a>    <span class="k">assert</span> <span class="n">response</span><span class="p">[</span><span class="s2">"ok"</span><span class="p">]</span>
+<a href="#__codelineno-1-13" id="__codelineno-1-13" name="__codelineno-1-13"></a><span class="k">except</span> <span class="n">SlackApiError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<a href="#__codelineno-1-14" id="__codelineno-1-14" name="__codelineno-1-14"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Error: </span><span class="si">{</span><span class="n">e</span><span class="o">.</span><span class="n">response</span><span class="p">[</span><span class="s1">'error'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</code></pre></div>
+<p>最后<span class="heti-skip"><span class="heti-spacing"> </span>submit<span class="heti-spacing"> </span></span>到<span class="heti-skip"><span class="heti-spacing"> </span>Autolab<span class="heti-spacing"> </span></span>的时候还需要提交<span class="heti-skip"><span class="heti-spacing"> </span>ablation study<span class="heti-spacing"> </span></span>的一些<span class="heti-skip"><span class="heti-spacing"> </span>wandb log<span class="heti-spacing"> </span></span>等结果，再写一个简单的<span class="heti-skip"><span class="heti-spacing"> </span>README<span class="heti-spacing"> </span></span>就可以了。<span>Autolab<span class="heti-spacing"> </span></span>会用<span class="heti-skip"><span class="heti-spacing"> </span>MOSS<span class="heti-spacing"> </span></span>检测代码的相似度，所以往年的代码最好不要参考。最后<span class="heti-skip"><span class="heti-spacing"> </span>Part2<span class="heti-spacing"> </span></span>的结果是分两个部分的，一个是截止前可以看见的<span><span class="heti-spacing"> </span>public leaderboard</span>，另一个是截止后的<span><span class="heti-spacing"> </span>private leaderboard</span>；相当于可以去拟合的第二个<span class="heti-skip"><span class="heti-spacing"> </span>valid set<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>test<span class="heti-spacing"> </span></span>吧，需要两个都达到<span class="heti-skip"><span class="heti-spacing"> </span>high cutoff<span class="heti-spacing"> </span></span>才能拿满分。</p>
+<h3 id="hw2p1">HW2P1<a class="headerlink" href="#hw2p1" title="Permanent link">¶</a></h3>
+<p><span>HW2P1 (MyTorch: Convolutional Neural Networks)<span class="heti-spacing"> </span></span>是手撸<span class="heti-skip"><span class="heti-spacing"> </span>CNNs<span class="heti-spacing"> </span></span>的，包括<span><span class="heti-spacing"> </span>Conv</span>、Pooling、和<span class="heti-skip"><span class="heti-spacing"> </span>resampling layers<span class="heti-spacing"> </span></span>等的<span><span class="heti-spacing"> </span>forward/backward</span>，最后还有个小<span class="heti-skip"><span class="heti-spacing"> </span>toy training task<span class="heti-spacing"> </span></span>可以稍微玩一下，这里面很重要的一个思想是 “Scanning MLPs == CNNs”。相比<span><span class="heti-spacing"> </span>MLP</span>，<span>CNNs<span class="heti-spacing"> </span></span>的<span class="heti-skip"><span class="heti-spacing"> </span>backpropagation<span class="heti-spacing"> </span></span>写法是可以让我更加感受到<span class="heti-skip"><span class="heti-spacing"> </span>gradient<span class="heti-spacing"> </span></span>是怎么传播的，写完后对反向传播的理解会更加深刻。</p>
+<p>在<span class="heti-skip"><span class="heti-spacing"> </span>Bonus<span class="heti-spacing"> </span></span>里面，会让我们完成<span class="heti-skip"><span class="heti-spacing"> </span>Dropout2D<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>BatchNorm2D<span class="heti-spacing"> </span></span>的实现，这里面需要注意的是，<span>Dropout2D<span class="heti-spacing"> </span></span>的实现和<span class="heti-skip"><span class="heti-spacing"> </span>Dropout1D<span class="heti-spacing"> </span></span>的实现是不一样的，<span>Dropout2D<span class="heti-spacing"> </span></span>的实现需要保证每个<span class="heti-skip"><span class="heti-spacing"> </span>channel<span class="heti-spacing"> </span></span>的<span class="heti-skip"><span class="heti-spacing"> </span>dropout mask<span class="heti-spacing"> </span></span>是一样的，而<span class="heti-skip"><span class="heti-spacing"> </span>Dropout1D<span class="heti-spacing"> </span></span>的实现则不需要。最后还需要自己<span class="heti-skip"><span class="heti-spacing"> </span>implement<span class="heti-spacing"> </span></span>一下<span><span class="heti-spacing"> </span>ResNet</span>；不过这次的<span class="heti-skip"><span class="heti-spacing"> </span>Autograd<span class="heti-spacing"> </span></span>确实比上次简单多了，可能是因为框架已经熟了，而且这次的<span class="heti-skip"><span class="heti-spacing"> </span>Autograd<span class="heti-spacing"> </span></span>的内容也和本身的<span class="heti-skip"><span class="heti-spacing"> </span>HW2P1<span class="heti-spacing"> </span></span>部分有<span><span class="heti-spacing"> </span>overlap</span>。</p>
+<h3 id="hw2p2">HW2P2<a class="headerlink" href="#hw2p2" title="Permanent link">¶</a></h3>
+<p><span>HW2P2 (Face Classification &amp; Verification)<span class="heti-spacing"> </span></span>是我觉得花时间最长的一个<span class="heti-skip"><span class="heti-spacing"> </span>HWxP2<span class="heti-spacing"> </span></span>了，因为他会有两个<span class="heti-skip"><span class="heti-spacing"> </span>Kaggle<span class="heti-spacing"> </span></span>比赛要去打，包括了<span class="heti-skip"><span class="heti-spacing"> </span>classification<span class="heti-spacing"> </span></span>和<span><span class="heti-spacing"> </span>verification</span>。由于不能用<span class="heti-skip"><span class="heti-spacing"> </span>pretrained<span class="heti-spacing"> </span></span>权重，得<span><span class="heti-spacing"> </span>training from scratch</span>，所以刚开始学习率一不小心就会让梯度爆炸，导致<span class="heti-skip"><span class="heti-spacing"> </span>loss<span class="heti-spacing"> </span></span>变成<span class="heti-skip"><span class="heti-spacing"> </span>nan<span class="heti-spacing"> </span></span>了，所以一开始只能用比较小的<span class="heti-skip"><span class="heti-spacing"> </span>learning rate<span class="heti-spacing"> </span></span>去做。刚开始训练也会遇到准确率一直很低，<span>loss<span class="heti-spacing"> </span></span>下降也比较慢的情况，但是训练了十几个<span class="heti-skip"><span class="heti-spacing"> </span>epoch<span class="heti-spacing"> </span></span>之后会有一个类似于<span class="heti-skip"><span class="heti-spacing"> </span>turning point<span class="heti-spacing"> </span></span>一样的位置，在这个位置之后模型似乎找到正确的优化方向，收敛快了很多。还有一个比较重要的点是，由于计算资源的限制，所以用<span class="heti-skip"><span class="heti-spacing"> </span>ResNet<span class="heti-spacing"> </span></span>去做这个任务是不太现实的，因为<span class="heti-skip"><span class="heti-spacing"> </span>FLOPs<span class="heti-spacing"> </span></span>太大了，训练相对慢很多。最后我选了<span><span class="heti-spacing"> </span>ConvNeXt</span>，利用了他的<span class="heti-skip"><span class="heti-spacing"> </span>group convolution<span class="heti-spacing"> </span></span>的特性，可以用比较少的<span class="heti-skip"><span class="heti-spacing"> </span>FLOPs<span class="heti-spacing"> </span></span>去实现比较好的效果。</p>
+<p><span>model<span class="heti-spacing"> </span></span>在分类的任务上训练得到了一个比较好的<span class="heti-skip"><span class="heti-spacing"> </span>backbone<span class="heti-spacing"> </span></span>之后就可以开始进行<span class="heti-skip"><span class="heti-spacing"> </span>verification<span class="heti-spacing"> </span></span>的<span><span class="heti-spacing"> </span>task</span>，实际上就是加了一些额外的<span><span class="heti-spacing"> </span>loss</span>，让他在<span class="heti-skip"><span class="heti-spacing"> </span>latent space<span class="heti-spacing"> </span></span>上<span class="heti-skip"><span class="heti-spacing"> </span>distance<span class="heti-spacing"> </span></span>更加优化，比如<span class="heti-skip"><span class="heti-spacing"> </span>ArcFace<span class="heti-spacing"> </span></span>之类的。</p>
+<h3 id="hw3p1">HW3P1<a class="headerlink" href="#hw3p1" title="Permanent link">¶</a></h3>
+<p><span>HW3P1<span class="heti-spacing"> </span></span>的名字特别有意思，叫 “RNNs, GRUs and Search, Oh My!”。相比前两次的<span><span class="heti-spacing"> </span>HWxP1</span>，这次要难一些，尤其是<span class="heti-skip"><span class="heti-spacing"> </span>search<span class="heti-spacing"> </span></span>部分。这次的<span class="heti-skip"><span class="heti-spacing"> </span>RNNs<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>GRUs<span class="heti-spacing"> </span></span>的部分主要是实现了<span><span class="heti-spacing"> </span>RNNs</span>、<span>GRUs<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>CTC loss<span class="heti-spacing"> </span></span>的<span class="heti-skip"><span class="heti-spacing"> </span>forward<span class="heti-spacing"> </span></span>和<span><span class="heti-spacing"> </span>backward</span>。我记得多层<span class="heti-skip"><span class="heti-spacing"> </span>RNNs<span class="heti-spacing"> </span></span>的<span class="heti-skip"><span class="heti-spacing"> </span>backward<span class="heti-spacing"> </span></span>会比较复杂，还是需要停下来想一下的。而<span class="heti-skip"><span class="heti-spacing"> </span>GRUs<span class="heti-spacing"> </span></span>的<span class="heti-skip"><span class="heti-spacing"> </span>backward<span class="heti-spacing"> </span></span>则需要大量动手计算偏导数，也算是另外一种折磨。</p>
+<p><span>search<span class="heti-spacing"> </span></span>部分中，<span>greedy search<span class="heti-spacing"> </span></span>比较简单，<span>beam search<span class="heti-spacing"> </span></span>算法算是比较难<span class="heti-skip"><span class="heti-spacing"> </span>debug<span class="heti-spacing"> </span></span>的了，关键是<span class="heti-skip"><span class="heti-spacing"> </span>write-up<span class="heti-spacing"> </span></span>刚开始还写错了，导致我花了很长时间，不过最后写出来还是挺有成就感的；最后在<span class="heti-skip"><span class="heti-spacing"> </span>Piazza<span class="heti-spacing"> </span></span>上问了<span class="heti-skip"><span class="heti-spacing"> </span>TA<span class="heti-spacing"> </span></span>才知道是题目有问题。</p>
+<h3 id="hw3p2">HW3P2<a class="headerlink" href="#hw3p2" title="Permanent link">¶</a></h3>
+<p><span>HW3P2 (Utterance to Phoneme Mapping)<span class="heti-spacing"> </span></span>也是一个<span class="heti-skip"><span class="heti-spacing"> </span>speech<span class="heti-spacing"> </span></span>的<span class="heti-skip"><span class="heti-spacing"> </span>Kaggle<span class="heti-spacing"> </span></span>比赛，主要是用来让我们熟悉如何<span class="heti-skip"><span class="heti-spacing"> </span>set up GRU/LSTM based models<span class="heti-spacing"> </span></span>的，包括了<span><span class="heti-spacing"> </span>RNNs</span>、GRUs、LSTMs、<span>CTC loss<span class="heti-spacing"> </span></span>等等。这次的<span class="heti-skip"><span class="heti-spacing"> </span>Kaggle<span class="heti-spacing"> </span></span>比赛的数据集比较大，所以训练时间也比较长，同时也用了一些外部的<span class="heti-skip"><span class="heti-spacing"> </span>package<span class="heti-spacing"> </span></span>来计算<span><span class="heti-spacing"> </span>CTC loss</span>。这是我第一次处理不同长度的<span class="heti-skip"><span class="heti-spacing"> </span>mfcc<span class="heti-spacing"> </span></span>数据，在处理数据的时候经常需要<span class="heti-skip"><span class="heti-spacing"> </span>pack/unpack<span class="heti-spacing"> </span></span>来输入到<span class="heti-skip"><span class="heti-spacing"> </span>RNNs<span class="heti-spacing"> </span></span>里面，这个过程也是比较容易出错的。同时，这次的<span class="heti-skip"><span class="heti-spacing"> </span>model<span class="heti-spacing"> </span></span>还需要用<span class="heti-skip"><span class="heti-spacing"> </span>CNN<span class="heti-spacing"> </span></span>作为一个<span class="heti-skip"><span class="heti-spacing"> </span>feature extractor<span class="heti-spacing"> </span></span>去抓一个窗口的<span><span class="heti-spacing"> </span>mfcc</span>，然后再输入到<span><span class="heti-spacing"> </span>RNNs</span>。</p>
+<h3 id="hw4p1">HW4P1<a class="headerlink" href="#hw4p1" title="Permanent link">¶</a></h3>
+<p><span>HW4P1 (Language Modeling using RNNs)<span class="heti-spacing"> </span></span>应该算是最杂的<span class="heti-skip"><span class="heti-spacing"> </span>HWxP1<span class="heti-spacing"> </span></span>了，从<span class="heti-skip"><span class="heti-spacing"> </span>attention<span class="heti-spacing"> </span></span>的<span class="heti-skip"><span class="heti-spacing"> </span>implementation<span class="heti-spacing"> </span></span>到整个的<span class="heti-skip"><span class="heti-spacing"> </span>training<span class="heti-spacing"> </span></span>都要求不低。最后还需要用<span class="heti-skip"><span class="heti-spacing"> </span>OpenAI<span class="heti-spacing"> </span></span>的<span class="heti-skip"><span class="heti-spacing"> </span>API<span class="heti-spacing"> </span></span>去测试一下<span><span class="heti-spacing"> </span>ppl</span>，当做分数的一部分，另外一部分要在<span class="heti-skip"><span class="heti-spacing"> </span>Autolab<span class="heti-spacing"> </span></span>里面刷点数。不过我感觉这门课很多基本只需要结构设计的还可以，可以<span class="heti-skip"><span class="heti-spacing"> </span>overfit training set<span class="heti-spacing"> </span></span>之后加点<span class="heti-skip"><span class="heti-spacing"> </span>regularization<span class="heti-spacing"> </span></span>就可以达到要求了。我做的时候都没注意到<span class="heti-skip"><span class="heti-spacing"> </span>Autolab<span class="heti-spacing"> </span></span>的部分居然还限制了<span class="heti-skip"><span class="heti-spacing"> </span>submission<span class="heti-spacing"> </span></span>的次数，还是之后在<span class="heti-skip"><span class="heti-spacing"> </span>Piazza<span class="heti-spacing"> </span></span>上看到有人<span class="heti-skip"><span class="heti-spacing"> </span>complain<span class="heti-spacing"> </span></span>才知道的。</p>
+<h3 id="hw4p2">HW4P2<a class="headerlink" href="#hw4p2" title="Permanent link">¶</a></h3>
+<p>最后一个<span class="heti-skip"><span class="heti-spacing"> </span>HW4P2 (Attention-based Speech Recognition)<span class="heti-spacing"> </span></span>我觉得其实和<span class="heti-skip"><span class="heti-spacing"> </span>Part 1<span class="heti-spacing"> </span></span>很像，做的事情都几乎差不多。不过这次的<span class="heti-skip"><span class="heti-spacing"> </span>write-up<span class="heti-spacing"> </span></span>也有坑的地方：在<span class="heti-skip"><span class="heti-spacing"> </span>write-up<span class="heti-spacing"> </span></span>里面的结果是先建议我们用<span class="heti-skip"><span class="heti-spacing"> </span>LSTM/Transformer encoder<span class="heti-spacing"> </span></span>再在中间插入一个<span class="heti-skip"><span class="heti-spacing"> </span>CNNs<span class="heti-spacing"> </span></span>来抽取特征，但是实际上这样做的话，训练的时候收敛性并不是很好，所以我最后还是用了<span class="heti-skip"><span class="heti-spacing"> </span>CNN encoder + LSTM + Transformer<span class="heti-spacing"> </span></span>作为<span class="heti-skip"><span class="heti-spacing"> </span>encoder<span class="heti-spacing"> </span></span>的结构。这次的<span class="heti-skip"><span class="heti-spacing"> </span>training<span class="heti-spacing"> </span></span>也花了很长时间，因为这次的数据集巨大，<span>train<span class="heti-spacing"> </span></span>一次得要几天，感觉对没有<span class="heti-skip"><span class="heti-spacing"> </span>GPU<span class="heti-spacing"> </span></span>的同学来说有点难度。</p>
+<p><span>Write-up<span class="heti-spacing"> </span></span>的最后一个<span class="heti-skip"><span class="heti-spacing"> </span>section<span class="heti-spacing"> </span></span>也比较<span><span class="heti-spacing"> </span>touching:</span></p>
+<div class="admonition comment">
+<p class="admonition-title">Comment</p>
+<p>This homework is a true litmus test for your understanding of concepts in Deep Learning. It is not easy to implement, and the competition is going to be tough. But we guarantee you, that if you manage to complete this homework by yourself, you can confidently claim that you are now a Deep Learning Specialist!</p>
+<p>Good luck and enjoy the challenge!</p>
+</div>
+<h2 id="project">Project<a class="headerlink" href="#project" title="Permanent link">¶</a></h2>
+<p>我不是很喜欢这门课的<span><span class="heti-spacing"> </span>Project</span>，给的时间不够充足，也不提供额外的计算资源，而且还是小组作业（这可能是罪魁祸首<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。让我感觉有点在浪费时间生产所谓的科研垃圾，还不如<span class="heti-skip"><span class="heti-spacing"> </span>enroll 11-685<span class="heti-spacing"> </span></span>版本去做<span><span class="heti-spacing"> </span>HW5</span>——implement a LLM from scratch。也听说之前有人靠着<span class="heti-skip"><span class="heti-spacing"> </span>Project<span class="heti-spacing"> </span></span>发了顶会，不过实际体验下来我感觉这部分的<span class="heti-skip"><span class="heti-spacing"> </span>support<span class="heti-spacing"> </span></span>做得还不够好。</p>
+<p>虽然最后分数也还可以，不过体验不是很好，所以我也不想多说了，也许对完全没有接触过<span class="heti-skip"><span class="heti-spacing"> </span>Deep Learning Research<span class="heti-spacing"> </span></span>的同学来说还算有意思吧。</p>
+<h2 id="final-words">Final Words<a class="headerlink" href="#final-words" title="Permanent link">¶</a></h2>
+<p>最后，我想引用一下<span class="heti-skip"><span class="heti-spacing"> </span>Bhiksha<span class="heti-spacing"> </span></span>在<span class="heti-skip"><span class="heti-spacing"> </span>Piazza<span class="heti-spacing"> </span></span>上发的一封邮件，感谢他和他的<span><span class="heti-spacing"> </span>TAs</span> 。我们做的一切；在这门课上，我学到了很多，也很幸运这是我在<span class="heti-skip"><span class="heti-spacing"> </span>CMU<span class="heti-spacing"> </span></span>的第一门课。</p>
+<div class="admonition comment">
+<p class="admonition-title">Comment</p>
+<p>Dear All,</p>
+<p>Our semester has finally ended, the holidays are here, and a new year is upon us.</p>
+<p>I would like to thank all of you for all of the effort you have put into the course.  I know that the course was enormously tiring for many of you.  Yet, you kept with it, some of you through illness and loss,  while also managing the rest of your equally demanding academic schedules.  Thank you!</p>
+<p>It is my hope that you will eventually find that it was worth it.  That a few years from now, with full hindsight,  you will look back and think it was time and effort that was well spent.</p>
+<p>I would also like to thank my amazing TAs, without whom the semester would not be possible. The sheer number of hours they put in each day could not ever be compensated in any manner.  Their work began in May, before the previous semester ended, and continued till yesterday, and they have had little rest in the interim.</p>
+<p>Over the term, they have designed and tested a dozen homeworks, held or recorded dozens of recitations, several bootcamps, a dozen hackathons, conducted over 600 office hours, fielded over 25000 posts on Piazza with an average response time of 5 minutes, designed, verified and setup weekly quizzes, tracked study groups, mentored project teams, shadowed lectures, and ensured everything went off on time, all the while also managing their own equally demanding coursework.</p>
+<p>I am not entirely sure <em>why</em> they do it, given that they get paid little to nothing for what they do. Their dedication is inspiring even to me. Thank you, guys!</p>
+<p>And finally, a thank you to all the unseen staff who kept the clock ticking -- the mediatech folks who broadcast the lectures, my admin Jennifer who ensured that all the organization and scheduling was in order, and the folks at Eberly and the helpdesk who help us setup various things.</p>
+<p>I wish you all a very happy holiday season and a wonderful new year.  May it be all good.</p>
+<p>-Bhiksha</p>
+</div>
+<hr/>
+<div class="md-source-file">
+<small>
+            最后更新:
+            <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime"><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime">2023年12月30日 01:39:02</span></span>
+<br/>
+            创建日期:
+            <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime"><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime">2023年12月30日 01:39:02</span></span>
+</small>
+</div>
+</article>
+</div>
+</div>
+<a class="md-top md-icon" data-md-component="top" data-md-state="hidden" href="#">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"></path></svg>
+              top
+            </a>
+</main>
+<footer class="md-footer">
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+<div class="md-copyright__highlight">
+      Copyright © 2024 <a href="https://github.com/preminstrel" rel="noopener" target="_blank">Hanshi Sun</a>
+</div>
+</div>
+<div class="md-social">
+<a class="md-social__link" href="https://github.com/preminstrel/" rel="noopener" target="_blank" title="github.com">
+<svg viewbox="0 0 496 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg>
+</a>
+<a class="md-social__link" href="https://blog.preminstrel.com" rel="noopener" target="_blank" title="blog.preminstrel.com">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M0 64c0-17.7 14.3-32 32-32 229.8 0 416 186.2 416 416 0 17.7-14.3 32-32 32s-32-14.3-32-32C384 253.6 226.4 96 32 96 14.3 96 0 81.7 0 64zm0 352a64 64 0 1 1 128 0 64 64 0 1 1-128 0zm32-256c159.1 0 288 128.9 288 288 0 17.7-14.3 32-32 32s-32-14.3-32-32c0-123.7-100.3-224-224-224-17.7 0-32-14.3-32-32s14.3-32 32-32z"></path></svg>
+</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"base": "../../..", "features": ["content.code.annotate", "navigation.tracking", "navigation.tabs", "navigation.indexes", "navigation.top"], "search": "../../../assets/javascripts/workers/search.361d90f1.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.config.lang": "en", "search.config.pipeline": "stemmer", "search.config.separator": "[\\s\\u200b\\u3000\\-\u3001\u3002\uff0c\uff0e\uff1f\uff01\uff1b]+", "search.placeholder": "\u641c\u7d22", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version.title": "select.version.title"}}</script>
+<script src="../../../assets/javascripts/bundle.289a2a4b.min.js"></script>
+<script src="https://cdn.tonycrane.cc/utils/katex.min.js"></script>
+<script src="../../../js/katex.js"></script>
+<script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
+</html>
